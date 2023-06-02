@@ -13,7 +13,7 @@ cycler==0.11.0
 Cython==0.29.35
 flatbuffers==2.0
 fonttools==4.31.2
-frozendict==2.3.4
+frozendict==2.3.8
 gast==0.5.3
 google-auth==2.6.2
 google-auth-oauthlib==0.4.6
