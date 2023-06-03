@@ -34,7 +34,7 @@ lxml==4.9.1
 Markdown==3.3.6
 matplotlib @ file:///C:/temp/matplotlib-3.5.2-cp310-cp310-win_amd64.whl
 multitasking==0.0.11
-networkx==2.8.4
+networkx==2.8.8
 numpy==1.23.0
 oauthlib==3.2.0
 opt-einsum==3.3.0
