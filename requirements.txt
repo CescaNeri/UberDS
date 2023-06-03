@@ -23,7 +23,7 @@ grpcio==1.44.0
 h5py==3.6.0
 html5lib==1.1
 idna==3.3
-igraph==0.10.2
+igraph==0.10.4
 joblib==1.1.0
 kaggle==1.5.12
 keras==2.8.0
