@@ -1,4 +1,4 @@
-absl-py==1.0.0
+absl-py==1.4.0
 kaggle==1.5.12
 keras==2.8.0
 Keras-Preprocessing==1.1.2
