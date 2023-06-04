@@ -7,7 +7,7 @@ Markdown==3.3.6
 matplotlib @ file:///C:/temp/matplotlib-3.5.2-cp310-cp310-win_amd64.whl
 numpy==1.23.0
 pandas==1.4.1
-plotly==5.7.0
+plotly==5.14.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
