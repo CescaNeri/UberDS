@@ -16,11 +16,10 @@ x = ['Requests', 'Requests', 'DeliveredProducts', 'SupplyHours', 'pETA']
 y = ['Completes', 'Completes', 'TotalProductsAvailable', 'TimeOnTrip', 'aETA']
 hue = ['Hour', 'Day', 'Hour', 'Hour', 'Hour']
 
-for vx, vy, vhue in zip(x, y, hue):
-    for num in range(len(x)):
-        vtitle = f'plot/scatter{num}.png'
-        scatter(vx, vy, vhue, vtitle)
-        plt.close()
+for i in range(len(x)):
+    vtitle = f'plot/scatter{i}.png'
+    scatter(x[i], y[i], hue[i], vtitle)
+    plt.close()
 
 #Get Histogram
 sum_completes_day = df.groupby('Day')['Completes'].sum().reset_index()
