@@ -46,11 +46,6 @@ plt.savefig('plot\correlation')
 rate = df['Completes'].sum() / df['Requests'].sum()
 print(f'Average Completion Rate: {rate}')
 
-#Add Features
-df['CompletionRate'] = df['Completes'] / df['Requests']
-df['TimeEfficiency'] = df['TimeOnTrip'] / df['SupplyHours']
-df['ETADifference'] = df['aETA'] - df['pETA']
-df['ProductsDeliveredPercentage'] = (df['DeliveredProducts'] / df['TotalProductsAvailable']) * 100
 
 
 
