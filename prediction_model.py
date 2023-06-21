@@ -18,7 +18,6 @@ from sklearn import svm
 url = 'https://raw.githubusercontent.com/CescaNeri/UberDS/main/Dataset/uber_deliveryServiceDataset.csv'
 df = pd.read_csv(url)
 
-
 #Add Features
 def features(df):
     df['TimeEfficiency'] = df['TimeOnTrip'] / df['SupplyHours']
