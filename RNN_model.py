@@ -43,6 +43,7 @@ rf_classifier.fit(X_train, y_train)
 
 y_pred = rf_classifier.predict(X_test)
 
+
 accuracy = accuracy_score(y_test, y_pred)
 print(f"The accuracy of the Random Forest Classifier is: {accuracy}")
 
@@ -85,7 +86,7 @@ model.add(SimpleRNN(units=64, activation='relu', input_shape=(X_train.shape[1], 
 model.add(Dense(units=1))
 
 model.compile(optimizer='adam', loss='mean_squared_error')
-model.fit(X_train, y_train, epochs=10, batch_size=32)
+model.fit(X_train, y_train, epochs=300, batch_size=32)
 
 loss = model.evaluate(X_test, y_test)
 print(f"Loss: {loss}")

@@ -21,6 +21,7 @@ for i in range(len(x)):
     scatter(x[i], y[i], hue[i], vtitle)
     plt.close()
 
+
 #Get Histogram
 sum_completes_day = df.groupby('Day')['Completes'].sum().reset_index()
 sns.barplot(data=sum_completes_day, x='Day', y='Completes')
