@@ -4,7 +4,6 @@
 - [Project Overview](#project-overview)
 - [Forecasting Model](#forecasting-model)
 - [Setup](#setup)
-- [Conclusion](#conclusion)
 
 ## Project Overview
 
