@@ -73,5 +73,4 @@ python prediction_model.py
 
 This script will train and execute the prediction model based on the chosen algorithm (classifier, linear regression, or RNN). It will utilize the prepared data to make predictions or generate forecasts, depending on the specific model implemented.
 
-## Conclusion
 
