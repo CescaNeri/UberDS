@@ -3,49 +3,67 @@ import numpy as np
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, SimpleRNN
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn import svm
 
 #Load Dataset
 url = 'https://raw.githubusercontent.com/CescaNeri/UberDS/main/Dataset/uber_deliveryServiceDataset.csv'
 df = pd.read_csv(url)
 
+
+#Add Features
 def features(df):
     df['TimeEfficiency'] = df['TimeOnTrip'] / df['SupplyHours']
     df['CompletionRate'] = df['Completes'] / df['Requests']
     df['ETADifference'] = df['aETA'] - df['pETA']
     df['ProductsDeliveredPercentage'] = (df['DeliveredProducts'] / df['TotalProductsAvailable']) * 100
 
-#Add Features
 features(df)
 
-df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
+#CLASSIFICATION - TARGET 0-1
 
-#RANDOM FOREST - CLASSIFICATION
-
-#Create Target for Classification Model
+#Define the Target for Classification
 average_completion_rate = df['CompletionRate'].mean()
 df['Target'] = df['CompletionRate'].apply(lambda x: 1 if x > average_completion_rate else 0)
 
-Xrf = df.drop('Target', axis=1)
-Xrf = Xrf.drop('Date', axis=1)
-Xrf = Xrf.drop("Day", axis=1)
-yrf = df['Target']
+#Build the Train and Test Set
+X = df.drop('Target', axis=1)
+X = X.drop('Date', axis=1)
+X = X.drop("Day", axis=1)
+y = df['Target']
 
-X_train, X_test, y_train, y_test = train_test_split(Xrf, yrf, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-rf_classifier = RandomForestClassifier(random_state=42)
-rf_classifier.fit(X_train, y_train)
+#Execute the Models
+names = [
+    "SVC",
+    "Random Forest",
+    "Ada Boost",
+    "Decision Tree",
+    "Quadratic Discrimination"
+]
 
-y_pred = rf_classifier.predict(X_test)
+classifiers = [
+    svm.SVC(gamma=0.001, C=100., kernel='rbf', verbose=False, probability=False),
+    RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    AdaBoostClassifier(),
+    DecisionTreeClassifier(),
+    QuadraticDiscriminantAnalysis()
+]
 
+for name, clf in zip(names, classifiers):
+  score = clf.fit(X_train, y_train)
 
-accuracy = accuracy_score(y_test, y_pred)
-print(f"The accuracy of the Random Forest Classifier is: {accuracy}")
+  pred_y = clf.predict(X_test)
+  print('Final Accuracy: {}, {:.3f}'.format((name),accuracy_score(y_test, pred_y)))
 
 #LINEAR REGRESSION - PREDICT REQUESTS
 
@@ -71,7 +89,6 @@ Xrnn = df.drop('Date', axis=1)
 Xrnn = Xrnn.drop('Day', axis=1)
 yrnn = df['Requests']
 
-# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(Xrnn, yrnn, test_size=0.2, random_state=42)
 
 #Scale and Reshape
