@@ -27,6 +27,8 @@ def features(df):
 
 features(df)
 
+df['DayNum'] = df['Day'].map({'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5, 'Saturday': 6, 'Sunday': 7})
+
 #CLASSIFICATION - TARGET 0-1
 
 #Define the Target for Classification
@@ -37,6 +39,10 @@ df['Target'] = df['CompletionRate'].apply(lambda x: 1 if x > average_completion_
 X = df.drop('Target', axis=1)
 X = X.drop('Date', axis=1)
 X = X.drop("Day", axis=1)
+X = X.drop('Requests', axis=1)
+X = X.drop('SupplyHours', axis=1)
+X = X.drop('TotalProductsAvailable', axis=1)
+X = X.drop('pETA', axis=1)
 y = df['Target']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -66,10 +72,12 @@ for name, clf in zip(names, classifiers):
 
 #LINEAR REGRESSION - PREDICT REQUESTS
 
-df['DayNum'] = df['Day'].map({'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5, 'Saturday': 6, 'Sunday': 7})
-
 Xlr = df.drop('Date', axis=1)
 Xlr = Xlr.drop('Day', axis=1)
+#Xlr = Xlr.drop('Requests', axis=1)
+Xlr = Xlr.drop('SupplyHours', axis=1)
+Xlr = Xlr.drop('TotalProductsAvailable', axis=1)
+Xlr = Xlr.drop('pETA', axis=1)
 ylr = df['Requests']
 
 X_train, X_test, y_train, y_test = train_test_split(Xlr, ylr, test_size=0.2, random_state=42)
@@ -102,7 +110,7 @@ model.add(SimpleRNN(units=64, activation='relu', input_shape=(X_train.shape[1], 
 model.add(Dense(units=1))
 
 model.compile(optimizer='adam', loss='mean_squared_error')
-model.fit(X_train, y_train, epochs=300, batch_size=32)
+model.fit(X_train, y_train, epochs=400, batch_size=32)
 
 loss = model.evaluate(X_test, y_test)
 print(f"Loss: {loss}")
